@@ -1,0 +1,25 @@
+name: My First CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Node.js setup
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22'
+    
+    - name: Dependencies install
+      run: pnpm install
+    
+    - name: Project build
+      run: pnpm run build
