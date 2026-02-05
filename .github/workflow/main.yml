@@ -2,13 +2,14 @@ name: My First CI Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, 'feature/**' ] 
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]  
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -18,8 +19,14 @@ jobs:
       with:
         node-version: '22'
     
+    # pnpm setup 
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8  
+    
     - name: Dependencies install
       run: pnpm install
     
-    - name: Project build
+    - name: Project build 
       run: pnpm run build
